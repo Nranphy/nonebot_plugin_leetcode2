@@ -2,9 +2,8 @@ import httpx
 import json
 
 
-
 #获取今日的每日一题标题，之后再另外查询内容
-async def get_today_title():
+def get_today_title():
     get_today_data = httpx.post("https://leetcode-cn.com/graphql", json={
         "query":"query questionOfToday {todayRecord { date question {frontendQuestionId: questionFrontendId difficulty titleSlug } } } ",
         "variables":{}
@@ -24,7 +23,6 @@ def get_sub_problem_data(titleSlug_):
             "titleSlug": titleSlug_ },
         "query": "query questionData($titleSlug: String!) { question(titleSlug: $titleSlug) { questionFrontendId title titleSlug translatedTitle translatedContent difficulty } } "
         })
-
     problem_data = json.loads(get_problem_data.text)
     problem_data = problem_data["data"]["question"]
     #题目信息(题号+题目译名)
