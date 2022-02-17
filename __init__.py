@@ -1,9 +1,9 @@
+from email.message import Message
 from nonebot import get_driver,on_command
 from .config import Config
 from nonebot.adapters.onebot.v11 import Bot, Event
 from nonebot.log import logger
-from get_data import get_today_title,get_sub_problem_data
-from imgkit import from_string
+from .get_data import get_today_title,get_sub_problem_data
 
 global_config = get_driver().config
 config = Config.parse_obj(global_config.dict())
@@ -18,5 +18,4 @@ async def send_today_problem(bot: Bot,event:Event):
     today_data = get_sub_problem_data(today_title)
     logger.info("获取题目内容成功。")
     logger.debug(f"题目{today_data[0]}的难度为{today_data[1]},内容略。")
-    from_string(today_data[2],output_path=r"/data/leetcode/"+today_title+".jpg")
-    await request_today.send("\n".join(today_data[:1])+r"/data/leetcode/"+today_title+".jpg")
+    await request_today.send("\n".join(today_data[:2])+Message.img(today_data[2])+f"\n{today_data[3]}")
