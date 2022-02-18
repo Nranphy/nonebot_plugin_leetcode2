@@ -36,10 +36,10 @@ async def send_today_problem(bot: Bot,event:Event):
     try:
         async with get_new_page(viewport={"width": 300, "height": 300}) as page:
                 await page.goto(
-                    "file://"+html_file_path,
+                    "file://"+str(os.path.abspath(__file__))+'/'+html_file_path,
                     wait_until="networkidle"
                 )
-                pic = await page.screenshot(full_page=True, path=img_file_path)
+                pic = await page.screenshot(full_page=True, path=str(os.path.abspath(__file__))+'/'+img_file_path)
     except Exception as e:
         logger.error("题目内容（html）转图片出错。")
         raise e
