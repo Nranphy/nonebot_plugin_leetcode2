@@ -36,7 +36,7 @@ async def send_today_problem(bot: Bot,event:Event):
     try:
         async with get_new_page(viewport={"width": 300, "height": 300}) as page:
                 await page.goto(
-                    html_file_path,
+                    "file:/"+str(os.getcwd())+"/"+html_file_path,
                     wait_until="networkidle"
                 )
                 pic = await page.screenshot(full_page=True, path=img_file_path)
