@@ -1,7 +1,8 @@
 from email.message import Message
 from nonebot import get_driver,on_command
 from .config import Config
-from nonebot.adapters.onebot.v11 import Bot, Event
+from nonebot.adapters.onebot.v11 import Bot, Event, MessageSegment
+from PIL import Image
 from nonebot.log import logger
 from .get_data import get_today_title,get_sub_problem_data
 from nonebot_plugin_htmlrender import get_new_page
@@ -43,7 +44,7 @@ async def send_today_problem(bot: Bot,event:Event):
     except Exception as e:
         logger.error("题目内容（html）转图片出错。")
         raise e
-    await request_today.send("\n".join(today_data[:2])+pic+f"\n{today_data[3]}")
+    await request_today.send("\n".join(today_data[:2])+MessageSegment.image(pic)+f"\n{today_data[3]}")
 
 
 
