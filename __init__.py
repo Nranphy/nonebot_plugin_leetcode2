@@ -1,8 +1,6 @@
-from email.message import Message
 from nonebot import get_driver,on_command
 from .config import Config
 from nonebot.adapters.onebot.v11 import Bot, Event, MessageSegment
-from PIL import Image
 from nonebot.log import logger
 from .get_data import get_today_title,get_sub_problem_data
 from nonebot_plugin_htmlrender import get_new_page
@@ -35,12 +33,20 @@ async def send_today_problem(bot: Bot,event:Event):
     with open(html_file_path,"w+") as f:
         f.write(today_data[2])
     try:
-        async with get_new_page(viewport={"width": 300, "height": 300}) as page:
+        # async with get_new_page(viewport={"width": 300, "height": 300}) as page:
+        #         await page.goto(
+        #             "file://"+str(os.getcwd())+"/"+html_file_path,
+        #             wait_until="networkidle"
+        #         )
+        #         pic = await page.screenshot(full_page=True, path=img_file_path)
+        #干脆直接访问×
+        async with get_new_page(viewport={"width": 500, "height": 300}) as page:
                 await page.goto(
-                    "file://"+str(os.getcwd())+"/"+html_file_path,
+                    "https://leetcode-cn.com/problems/"+today_title,
                     wait_until="networkidle"
                 )
-                pic = await page.screenshot(full_page=True, path=img_file_path)
+                div = page.locator(".content__1Y2H")
+                pic = await div.screenshot(path=img_file_path)
     except Exception as e:
         logger.error("题目内容（html）转图片出错。")
         raise e
