@@ -33,7 +33,7 @@ async def send_today_problem(bot: Bot,event:Event):
     with open(html_file_path,"w+") as f:
         f.write(today_data[2])
     try:
-        async with get_new_page(viewport={"width": 300, "height": 300}) as page:
+        async with get_new_page(viewport={"width": 840, "height": 800}) as page:
                 await page.goto(
                     "file://"+str(os.getcwd())+"/"+html_file_path,
                     wait_until="networkidle"
