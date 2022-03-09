@@ -17,7 +17,30 @@ def get_today_title():
         logger.error("获取每日一题标题时出错。",e)
         raise e
 
-
+#调用查询接口进行查询，之后再另查询内容
+def get_search_title(keyword):
+    try:
+        get_search_data = httpx.post("https://leetcode-cn.com/graphql", json={
+            "query": "query problemsetQuestionList($categorySlug: String, $limit: Int, $skip: Int, $filters: QuestionListFilterInput) {  problemsetQuestionList(    categorySlug: $categorySlug    limit: $limit    skip: $skip    filters: $filters  ) {    hasMore    total    questions {      acRate      difficulty      freqBar      frontendQuestionId      isFavor      paidOnly      solutionNum      status      title      titleCn      titleSlug      topicTags {        name        nameTranslated        id        slug      }      extra {        hasVideoSolution        topCompanyTags {          imgUrl          slug          numSubscribed        }      }    }  }}    ",
+            "variables": {
+                "categorySlug": "",
+                "skip": 0,
+                "limit": 1,
+                "filters": {
+                    "searchKeywords": keyword
+                }
+            }
+        })
+        search_data = json.loads(get_search_data.text)
+        question_list = search_data["data"]["problemsetQuestionList"]["questions"]
+        if question_list:
+            titleSlug = question_list[0]["titleSlug"]
+        else:
+            titleSlug = ""
+        return titleSlug
+    except Exception as e:
+        logger.error("获取搜索标题时出错。",e)
+        raise e
 
 
 #获取某一已知名称的题目内容
