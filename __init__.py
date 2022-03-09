@@ -61,9 +61,9 @@ async def parse(bot: Bot, event: Event, state: T_State = State()):
 
 
 @request_search.got("keyword",prompt="请输出要在leetcode查找的内容哦~\n可为题号、题目、题干内容哒")
-async def send_today_problem(bot: Bot,event:Event):
+async def send_today_problem(bot: Bot,event:Event,  state: T_State = State()):
     try:
-        search_title = get_search_title()
+        search_title = get_search_title(state["keyword"])
         if search_title:
             logger.info(f"成功搜索到关键字题目，只取第一条，题目为{search_title}.")
         else:
