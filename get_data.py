@@ -3,6 +3,26 @@ import json
 from nonebot.log import logger
 from nonebot_plugin_htmlrender import get_new_page
 
+
+
+#请求随机题目
+def get_random_title():
+    try:
+        get_random_data = httpx.post("https://leetcode-cn.com/graphql", json={
+            "query": "query problemsetRandomFilteredQuestion($categorySlug: String!, $filters: QuestionListFilterInput) {  problemsetRandomFilteredQuestion(categorySlug: $categorySlug, filters: $filters)}",
+            "variables": {
+                "categorySlug": "",
+                "filters": {}
+            }
+        })
+        random_data = json.loads(get_random_data.text)
+        titleSlug = random_data["data"]["problemsetRandomFilteredQuestion"]
+        return titleSlug
+    except Exception as e:
+        logger.error("获取随机题目标题时出错。",e)
+        raise e
+
+
 #获取今日的每日一题标题，之后再另查询内容
 def get_today_title():
     try:

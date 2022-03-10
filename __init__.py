@@ -3,14 +3,17 @@ from nonebot.typing import T_State
 from nonebot.params import State
 from nonebot.adapters.onebot.v11 import Bot, Event, MessageSegment
 from nonebot.log import logger
-from .get_data import get_today_title ,get_sub_problem_data ,get_search_title
+from .get_data import get_today_title ,get_sub_problem_data ,get_search_title ,get_random_title
 from nonebot_plugin_htmlrender import get_new_page
 import os
 
 
 
-request_today = on_command("每日一题",aliases={"lc","leetcode"},priority = 10,block = True)
+request_today = on_command("lc每日",aliases={"lc","leetcode"},priority = 10,block = True)
+
 request_search = on_command("lc查询",aliases={"lc搜索","leetcode搜索"},priority = 10,block = True)
+
+request_random = on_command("lc随机",aliases={"lc随机一题","leetcode随机"},priority = 10,block = True)
 
 
 
@@ -47,7 +50,7 @@ async def send_today_problem(bot: Bot,event:Event):
         logger.error("题目内容（html）转图片出错。")
         await request_today.send("题目内容转图片时出错×")
         raise e
-    await request_today.send("获取今日每日一题成功\n".join(today_data[:2])+MessageSegment.image(pic)+f"\n{today_data[3]}")
+    await request_today.send("获取今日每日一题成功~加油哦ww\n"+"\n".join(today_data[:2])+MessageSegment.image(pic)+f"\n{today_data[3]}")
 
 
 
@@ -97,9 +100,44 @@ async def send_today_problem(bot: Bot,event:Event,  state: T_State = State()):
         logger.error("题目内容（html）转图片出错。")
         await request_search.send("题目内容转图片时出错×")
         raise e
-    await request_search.send("搜索成功~只发送了最相关题目哦ww\n".join(today_data[:2])+MessageSegment.image(pic)+f"\n{today_data[3]}")
+    await request_search.send("搜索成功~只发送了最相关题目哦ww\n"+"\n".join(today_data[:2])+MessageSegment.image(pic)+f"\n{today_data[3]}")
 
 
+
+#随机一题
+@request_random.handle()
+async def send_random_problem(bot: Bot,event:Event):
+    try:
+        random_title = get_random_title()
+        logger.info(f"获取随机一题题目成功，题目为{random_title}.")
+        random_data = get_sub_problem_data(random_title)
+        logger.info("获取题目内容成功。")
+        logger.debug(f"题目{random_data[0]}的难度为{random_data[1]},内容略。")
+    except Exception as e:
+        await request_random.finish("连接到leetcode失败...呜呜呜...\n请稍后再试！！")
+        raise e
+
+    ##将html转为图片
+    html_path = f"data/nonebot_plugin_leetcode/html"
+    check_dir(html_path)
+    html_file_path = html_path+f'/{random_title}.html'
+    img_path = f"data/nonebot_plugin_leetcode/img"
+    check_dir(img_path)
+    img_file_path = img_path+f'/{random_title}.png'
+    with open(html_file_path,"w+") as f:
+        f.write(random_data[2])
+    try:
+        async with get_new_page(viewport={"width": 840, "height": 800}) as page:
+                await page.goto(
+                    "file://"+str(os.getcwd())+"/"+html_file_path,
+                    wait_until="networkidle"
+                )
+                pic = await page.screenshot(full_page=True, path=img_file_path)
+    except Exception as e:
+        logger.error("题目内容（html）转图片出错。")
+        await request_random.send("题目内容转图片时出错×")
+        raise e
+    await request_random.send("成功获取随机一题~加油哦ww\n"+"\n".join(random_data[:2])+MessageSegment.image(pic)+f"\n{random_data[3]}")
 
 
 
