@@ -1,0 +1,17 @@
+{
+	"operationName": "columnsUserSolutionCount",
+	"variables": {
+		"userSlug": "ac_oier"
+	},
+	"query": "query columnsUserSolutionCount($userSlug: String!) {\n  columnsUserSolutionCount(userSlug: $userSlug)\n}\n"
+}
+
+
+{"data":{"columnsUserSolutionCount":499}}
+
+
+
+
+
+
+题解数

@@ -1,0 +1,42 @@
+{
+	"operationName": "userQuestionSubmitStats",
+	"variables": {
+		"userSlug": "ac_oier"
+	},
+	"query": "query userQuestionSubmitStats($userSlug: String!) {\n  userProfileUserQuestionSubmitStats(userSlug: $userSlug) {\n    acSubmissionNum {\n      difficulty\n      count\n      __typename\n    }\n    totalSubmissionNum {\n      difficulty\n      count\n      __typename\n    }\n    __typename\n  }\n}\n"
+}
+
+
+{
+	"data": {
+		"userProfileUserQuestionSubmitStats": {
+			"acSubmissionNum": [{
+				"difficulty": "EASY",
+				"count": 847,
+				"__typename": "SubmissionCountNode"
+			}, {
+				"difficulty": "MEDIUM",
+				"count": 1933,
+				"__typename": "SubmissionCountNode"
+			}, {
+				"difficulty": "HARD",
+				"count": 1351,
+				"__typename": "SubmissionCountNode"
+			}],
+			"totalSubmissionNum": [{
+				"difficulty": "EASY",
+				"count": 957,
+				"__typename": "SubmissionCountNode"
+			}, {
+				"difficulty": "MEDIUM",
+				"count": 2171,
+				"__typename": "SubmissionCountNode"
+			}, {
+				"difficulty": "HARD",
+				"count": 1575,
+				"__typename": "SubmissionCountNode"
+			}],
+			"__typename": "QuestionSubmittedNode"
+		}
+	}
+}

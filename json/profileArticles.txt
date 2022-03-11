@@ -1,0 +1,305 @@
+{
+	"operationName": "profileArticles",
+	"variables": {
+		"userSlug": "ac_oier",
+		"skip": 0,
+		"first": 15
+	},
+	"query": "query profileArticles($userSlug: String!, $skip: Int, $first: Int) {\n  solutionArticles(userSlug: $userSlug, skip: $skip, first: $first) {\n    edges {\n      node {\n        title\n        slug\n        question {\n          title\n          titleSlug\n          translatedTitle\n          questionFrontendId\n          __typename\n        }\n        upvoteCount\n        topic {\n          commentCount\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n"
+}
+
+
+
+{
+	"data": {
+		"solutionArticles": {
+			"edges": [{
+				"node": {
+					"title": "【宫水三叶】一题三解 :「递归」&「非递归」&「通用非递归」",
+					"slug": "gong-shui-san-xie-shu-de-sou-suo-yun-yon-pse1",
+					"question": {
+						"title": "N-ary Tree Preorder Traversal",
+						"titleSlug": "n-ary-tree-preorder-traversal",
+						"translatedTitle": "N 叉树的前序遍历",
+						"questionFrontendId": "589",
+						"__typename": "QuestionNode"
+					},
+					"upvoteCount": 56,
+					"topic": {
+						"commentCount": 64,
+						"__typename": "TopicNode"
+					},
+					"__typename": "SolutionArticleNode"
+				},
+				"__typename": "SolutionArticleEdge"
+			}, {
+				"node": {
+					"title": "【宫水三叶】上下界分析 + 差分应用",
+					"slug": "gong-shui-san-xie-shang-xia-jie-fen-xi-c-p6kh",
+					"question": {
+						"title": "Smallest Rotation with Highest Score",
+						"titleSlug": "smallest-rotation-with-highest-score",
+						"translatedTitle": "得分最高的最小轮调",
+						"questionFrontendId": "798",
+						"__typename": "QuestionNode"
+					},
+					"upvoteCount": 149,
+					"topic": {
+						"commentCount": 124,
+						"__typename": "TopicNode"
+					},
+					"__typename": "SolutionArticleNode"
+				},
+				"__typename": "SolutionArticleEdge"
+			}, {
+				"node": {
+					"title": "【宫水三叶】二分 & 前缀和 运用题",
+					"slug": "gong-shui-san-xie-er-fen-qian-zhui-he-yu-0qt0",
+					"question": {
+						"title": "Plates Between Candles",
+						"titleSlug": "plates-between-candles",
+						"translatedTitle": "蜡烛之间的盘子",
+						"questionFrontendId": "2055",
+						"__typename": "QuestionNode"
+					},
+					"upvoteCount": 161,
+					"topic": {
+						"commentCount": 87,
+						"__typename": "TopicNode"
+					},
+					"__typename": "SolutionArticleNode"
+				},
+				"__typename": "SolutionArticleEdge"
+			}, {
+				"node": {
+					"title": "【宫水三叶の特别篇】简单模拟题",
+					"slug": "gong-shui-san-xie-jian-dan-mo-ni-ti-by-a-2759",
+					"question": {
+						"title": "Base 7",
+						"titleSlug": "base-7",
+						"translatedTitle": "七进制数",
+						"questionFrontendId": "504",
+						"__typename": "QuestionNode"
+					},
+					"upvoteCount": 220,
+					"topic": {
+						"commentCount": 166,
+						"__typename": "TopicNode"
+					},
+					"__typename": "SolutionArticleNode"
+				},
+				"__typename": "SolutionArticleEdge"
+			}, {
+				"node": {
+					"title": "【宫水三叶】前缀和运用题",
+					"slug": "gong-shui-san-xie-qian-zhui-he-yun-yong-gf604",
+					"question": {
+						"title": "Find Good Days to Rob the Bank",
+						"titleSlug": "find-good-days-to-rob-the-bank",
+						"translatedTitle": "适合打劫银行的日子",
+						"questionFrontendId": "2100",
+						"__typename": "QuestionNode"
+					},
+					"upvoteCount": 99,
+					"topic": {
+						"commentCount": 83,
+						"__typename": "TopicNode"
+					},
+					"__typename": "SolutionArticleNode"
+				},
+				"__typename": "SolutionArticleEdge"
+			}, {
+				"node": {
+					"title": "【宫水三叶】脑筋急转弯字符串题",
+					"slug": "gong-shui-san-xie-nao-jin-ji-zhuan-wan-z-nj3w",
+					"question": {
+						"title": "Longest Uncommon Subsequence I",
+						"titleSlug": "longest-uncommon-subsequence-i",
+						"translatedTitle": "最长特殊序列 Ⅰ",
+						"questionFrontendId": "521",
+						"__typename": "QuestionNode"
+					},
+					"upvoteCount": 43,
+					"topic": {
+						"commentCount": 43,
+						"__typename": "TopicNode"
+					},
+					"__typename": "SolutionArticleNode"
+				},
+				"__typename": "SolutionArticleEdge"
+			}, {
+				"node": {
+					"title": "【宫水三叶】一题三解 :「区间 DP」&「递推」&「单调栈」",
+					"slug": "gong-shui-san-xie-yi-ti-san-jie-qu-jian-wn84z",
+					"question": {
+						"title": "Sum of Subarray Ranges",
+						"titleSlug": "sum-of-subarray-ranges",
+						"translatedTitle": "子数组范围和",
+						"questionFrontendId": "2104",
+						"__typename": "QuestionNode"
+					},
+					"upvoteCount": 158,
+					"topic": {
+						"commentCount": 94,
+						"__typename": "TopicNode"
+					},
+					"__typename": "SolutionArticleNode"
+				},
+				"__typename": "SolutionArticleEdge"
+			}, {
+				"node": {
+					"title": "【宫水三叶】一题双解 :「模拟」&「数学」",
+					"slug": "gong-shui-san-xie-yi-ti-shuang-jie-mo-ni-zdml",
+					"question": {
+						"title": "Add Digits",
+						"titleSlug": "add-digits",
+						"translatedTitle": "各位相加",
+						"questionFrontendId": "258",
+						"__typename": "QuestionNode"
+					},
+					"upvoteCount": 63,
+					"topic": {
+						"commentCount": 53,
+						"__typename": "TopicNode"
+					},
+					"__typename": "SolutionArticleNode"
+				},
+				"__typename": "SolutionArticleEdge"
+			}, {
+				"node": {
+					"title": "【宫水三叶】贪心分析上下界 + 边界处理",
+					"slug": "gong-shui-san-xie-tan-xin-fen-xi-shang-x-vtr6",
+					"question": {
+						"title": "Find the Closest Palindrome",
+						"titleSlug": "find-the-closest-palindrome",
+						"translatedTitle": "寻找最近的回文数",
+						"questionFrontendId": "564",
+						"__typename": "QuestionNode"
+					},
+					"upvoteCount": 98,
+					"topic": {
+						"commentCount": 84,
+						"__typename": "TopicNode"
+					},
+					"__typename": "SolutionArticleNode"
+				},
+				"__typename": "SolutionArticleEdge"
+			}, {
+				"node": {
+					"title": "【宫水三叶】一题双解 :「模拟」&「数学」",
+					"slug": "gong-shui-san-xie-yi-ti-shuang-jie-mo-ni-naz6",
+					"question": {
+						"title": "ZigZag Conversion",
+						"titleSlug": "zigzag-conversion",
+						"translatedTitle": "Z 字形变换",
+						"questionFrontendId": "6",
+						"__typename": "QuestionNode"
+					},
+					"upvoteCount": 63,
+					"topic": {
+						"commentCount": 53,
+						"__typename": "TopicNode"
+					},
+					"__typename": "SolutionArticleNode"
+				},
+				"__typename": "SolutionArticleEdge"
+			}, {
+				"node": {
+					"title": "【宫水三叶】数学类贪心运用题",
+					"slug": "gong-shui-san-xie-shu-xue-lei-tan-xin-yu-61sq",
+					"question": {
+						"title": "Optimal Division",
+						"titleSlug": "optimal-division",
+						"translatedTitle": "最优除法",
+						"questionFrontendId": "553",
+						"__typename": "QuestionNode"
+					},
+					"upvoteCount": 86,
+					"topic": {
+						"commentCount": 42,
+						"__typename": "TopicNode"
+					},
+					"__typename": "SolutionArticleNode"
+				},
+				"__typename": "SolutionArticleEdge"
+			}, {
+				"node": {
+					"title": "【宫水三叶】简单模拟题",
+					"slug": "gong-shui-san-xie-jian-dan-mo-ni-ti-by-a-jz6f",
+					"question": {
+						"title": "Where Will the Ball Fall",
+						"titleSlug": "where-will-the-ball-fall",
+						"translatedTitle": "球会落何处",
+						"questionFrontendId": "1706",
+						"__typename": "QuestionNode"
+					},
+					"upvoteCount": 85,
+					"topic": {
+						"commentCount": 100,
+						"__typename": "TopicNode"
+					},
+					"__typename": "SolutionArticleNode"
+				},
+				"__typename": "SolutionArticleEdge"
+			}, {
+				"node": {
+					"title": "【宫水三叶】二进制枚举运用题",
+					"slug": "gong-shui-san-xie-er-jin-zhi-mei-ju-by-a-enef",
+					"question": {
+						"title": "Maximum Number of Achievable Transfer Requests",
+						"titleSlug": "maximum-number-of-achievable-transfer-requests",
+						"translatedTitle": "最多可达成的换楼请求数目",
+						"questionFrontendId": "1601",
+						"__typename": "QuestionNode"
+					},
+					"upvoteCount": 76,
+					"topic": {
+						"commentCount": 88,
+						"__typename": "TopicNode"
+					},
+					"__typename": "SolutionArticleNode"
+				},
+				"__typename": "SolutionArticleEdge"
+			}, {
+				"node": {
+					"title": "【宫水三叶】简单模拟题",
+					"slug": "gong-shui-san-xie-jian-dan-mo-ni-ti-by-a-gisg",
+					"question": {
+						"title": "Maximum Difference Between Increasing Elements",
+						"titleSlug": "maximum-difference-between-increasing-elements",
+						"translatedTitle": "增量元素之间的最大差值",
+						"questionFrontendId": "2016",
+						"__typename": "QuestionNode"
+					},
+					"upvoteCount": 61,
+					"topic": {
+						"commentCount": 62,
+						"__typename": "TopicNode"
+					},
+					"__typename": "SolutionArticleNode"
+				},
+				"__typename": "SolutionArticleEdge"
+			}, {
+				"node": {
+					"title": "【宫水三叶】简单模拟题",
+					"slug": "gong-shui-san-xie-jian-dan-mo-ni-ti-by-a-avlh",
+					"question": {
+						"title": "Complex Number Multiplication",
+						"titleSlug": "complex-number-multiplication",
+						"translatedTitle": "复数乘法",
+						"questionFrontendId": "537",
+						"__typename": "QuestionNode"
+					},
+					"upvoteCount": 45,
+					"topic": {
+						"commentCount": 63,
+						"__typename": "TopicNode"
+					},
+					"__typename": "SolutionArticleNode"
+				},
+				"__typename": "SolutionArticleEdge"
+			}],
+			"__typename": "SolutionArticleConnection"
+		}
+	}
+}
