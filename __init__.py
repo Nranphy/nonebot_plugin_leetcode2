@@ -197,7 +197,7 @@ async def send_user_data(bot: Bot,event:Event,  state: T_State = State()):
     except Exception as e:
         await request_user.finish("解析用户信息出错×\n用户ID错误或不存在，请输入用户ID而非用户昵称哦~")
 
-    await request_user.send("用户查询数据成功~\n"+MessageSegment.image(userAvatar)+f"用户昵称：{realName}（{userSlug}）\n========\n"+f"【已解决问题】  EASY：{numAcceptedQuestions_easy} |MEDIUM：{numAcceptedQuestions_medium} |DIFFICULTY：{numAcceptedQuestions_difficulty}\n========\n"+f"【成就贡献】  阅读总数：{viewCount} |获得点赞：{voteCount} |获得收藏：{favoriteCount} |发布题解：{columnsUserSolutionCount}"+f"\n用户主页：https://leetcode-cn.com/u/{userSlug}/")
+    await request_user.send("用户查询数据成功~\n"+MessageSegment.image(userAvatar.read())+f"用户昵称：{realName}（{userSlug}）\n========\n"+f"【已解决问题】  EASY：{numAcceptedQuestions_easy} |MEDIUM：{numAcceptedQuestions_medium} |DIFFICULTY：{numAcceptedQuestions_difficulty}\n========\n"+f"【成就贡献】  阅读总数：{viewCount} |获得点赞：{voteCount} |获得收藏：{favoriteCount} |发布题解：{columnsUserSolutionCount}"+f"\n用户主页：https://leetcode-cn.com/u/{userSlug}/")
 
 
 
