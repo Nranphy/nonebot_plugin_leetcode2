@@ -220,7 +220,7 @@ async def send_user_data(bot: Bot,event:Event,  state: T_State = State()):
         logger.debug("user_medals数据解析完成")
 
         if user_profile_articles["data"]["solutionArticles"]["edges"]:
-            latest_article_title = user_profile_articles["data"]["solutionArticles"]["edges"][0]["node"]["title"]
+            latest_article_title = f'【最近题解】：{user_profile_articles["data"]["solutionArticles"]["edges"][0]["node"]["title"]}\n'
         else:
             latest_article_title = ""
         logger.debug("user_profile_articles数据解析完成")
@@ -242,7 +242,7 @@ async def send_user_data(bot: Bot,event:Event,  state: T_State = State()):
             "========\n"
             f"【成就贡献】  阅读总数：{viewCount} |获得点赞：{voteCount} |获得收藏：{favoriteCount} |发布题解：{columnsUserSolutionCount}\n"+\
             latest_madal+latest_article_title+\
-            f"\n用户主页：https://leetcode-cn.com/u/{userSlug}/")
+            f"用户主页：https://leetcode-cn.com/u/{userSlug}/")
 
 
 
