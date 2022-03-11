@@ -66,8 +66,10 @@ async def send_today_problem(bot: Bot,event:Event):
 @request_search.handle()
 async def parse(bot: Bot, event: Event, state: T_State = State()):
     temp = str(event.get_message()).split()
-    if temp[1]:
+    try:
         state["keyword"] = temp[1]
+    except Exception:
+        pass
 
 
 @request_search.got("keyword",prompt="请输出要在leetcode查找的内容哦~\n可为题号、题目、题干内容哒")
@@ -177,20 +179,26 @@ async def send_user_data(bot: Bot,event:Event,  state: T_State = State()):
         userSlug = state["user_Slug"]
         realName = user_public_profile["data"]["userProfilePublicProfile"]["profile"]["realName"]
         userAvatar = httpx.get(user_public_profile["data"]["userProfilePublicProfile"]["profile"]["userAvatar"])
+        logger.debug("user_public_profile数据解析完成")
 
         voteCount = user_community_achievement["data"]["profileCommunityAchievement"][0]["voteCount"]
         viewCount = user_community_achievement["data"]["profileCommunityAchievement"][0]["viewCount"]
         favoriteCount = user_community_achievement["data"]["profileCommunityAchievement"][0]["favoriteCount"]
+        logger.debug("user_community_achievement数据解析完成")
 
         numAcceptedQuestions_easy = user_question_progress["data"]["userProfileUserQuestionProgress"]["numAcceptedQuestions"][0]["count"]
         numAcceptedQuestions_medium = user_question_progress["data"]["userProfileUserQuestionProgress"]["numAcceptedQuestions"][1]["count"]
         numAcceptedQuestions_difficulty = user_question_progress["data"]["userProfileUserQuestionProgress"]["numAcceptedQuestions"][2]["count"]
+        logger.debug("user_question_progress数据解析完成")
 
         columnsUserSolutionCount = user_solution_count["data"]["columnsUserSolutionCount"]
+        logger.debug("user_solution_count数据解析完成")
 
-        await request_user.send("用户查询数据成功~\n"+MessageSegment.image(userAvatar)+f"用户昵称：{realName}（{userSlug}）\n========\n"+f"【已解决问题】  EASY：{numAcceptedQuestions_easy} |MEDIUM：{numAcceptedQuestions_medium} |DIFFICULTY：{numAcceptedQuestions_difficulty}\n========\n"+f"【成就贡献】  阅读总数：{viewCount} |获得点赞：{voteCount} |获得收藏：{favoriteCount} |发布题解：{columnsUserSolutionCount}")
     except Exception as e:
         await request_user.finish("解析用户信息出错×\n用户ID错误或不存在，请输入用户ID而非用户昵称哦~")
+
+    await request_user.send("用户查询数据成功~\n"+MessageSegment.image(userAvatar)+f"用户昵称：{realName}（{userSlug}）\n========\n"+f"【已解决问题】  EASY：{numAcceptedQuestions_easy} |MEDIUM：{numAcceptedQuestions_medium} |DIFFICULTY：{numAcceptedQuestions_difficulty}\n========\n"+f"【成就贡献】  阅读总数：{viewCount} |获得点赞：{voteCount} |获得收藏：{favoriteCount} |发布题解：{columnsUserSolutionCount}"+f"\n用户主页：https://leetcode-cn.com/u/{userSlug}/")
+
 
 
 
