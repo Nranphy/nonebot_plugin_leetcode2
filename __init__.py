@@ -187,9 +187,12 @@ async def send_user_data(bot: Bot,event:Event,  state: T_State = State()):
         acTotal = user_public_profile["data"]["userProfilePublicProfile"]["submissionProgress"]["acTotal"]
         logger.debug("user_public_profile数据解析完成")
 
-        voteCount = user_community_achievement["data"]["profileCommunityAchievement"][0]["voteCount"]
-        viewCount = user_community_achievement["data"]["profileCommunityAchievement"][0]["viewCount"]
-        favoriteCount = user_community_achievement["data"]["profileCommunityAchievement"][0]["favoriteCount"]
+        if user_community_achievement["data"]["profileCommunityAchievement"]:
+            voteCount = user_community_achievement["data"]["profileCommunityAchievement"][0]["voteCount"]
+            viewCount = user_community_achievement["data"]["profileCommunityAchievement"][0]["viewCount"]
+            favoriteCount = user_community_achievement["data"]["profileCommunityAchievement"][0]["favoriteCount"]
+        else:
+            voteCount,viewCount,favoriteCount = 0,0,0
         logger.debug("user_community_achievement数据解析完成")
 
         numAcceptedQuestions_easy = user_question_progress["data"]["userProfileUserQuestionProgress"]["numAcceptedQuestions"][0]["count"]
