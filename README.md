@@ -2,13 +2,13 @@
 萌新第一个程序，正在测试中。现不准备发布在nb商店。
 
 ## 目前已实现功能
-对指令`/每日一题`，`/lc`，`/leetcode`回复，发送今天的每日一题。
+- [x] **对指令`/每日一题`，`/lc`，`/leetcode`回复，发送今天的每日一题。**
 
-可搜索leetcode题目，指令`/lc搜索 XXXXX`，`/lc查找 XXXXX`，`/leetcode搜索 XXXXX`，将以关键词“XXXXX”进行leetcode搜索，发送搜索到的第一道题。
+- [x] **可搜索leetcode题目，指令`/lc搜索 XXXXX`，`/lc查找 XXXXX`，`/leetcode搜索 XXXXX`，将以关键词“XXXXX”进行leetcode搜索，发送搜索到的第一道题。**
 
-随机一题，指令`/lc随机`，`/lc随机一题`，`/leetcode随机`将请求leetcode随机一题，发送请求到的任意题目。、
+- [x] **随机一题，指令`/lc随机`，`/lc随机一题`，`/leetcode随机`将请求leetcode随机一题，发送请求到的任意题目。**
 
-查询用户信息`/lc查询 XXXXX`，`/lc查询用户 XXXXX`，`/leetcode查询 XXXXX`，可查询用户基本信息，XXXXX为用户ID（不能用用户名）。
+- [x] **查询用户信息`/lc查询 XXXXX`，`/lc查询用户 XXXXX`，`/leetcode查询 XXXXX`，可查询用户基本信息，XXXXX为用户ID（不能用用户名）。**<br/>
 因为能查到的东西太多了，包括用户各方面分数、解题提交总数、解题失败总数、还未接触的题目数、勋章成就、题解标题等等等等，继续爬还有其他信息，所以都加进来会显得杂乱，便大概保留了一些用httpx.post请求的的函数，如感觉有必要对机器人返回信息进行修改，可以简单看看json文件夹内的一些记录（当然...这些json请求和响应写法随时可能过时，请提交issues提醒我或者自行前往leetcode检查×）
 
 ## 将来加入功能
