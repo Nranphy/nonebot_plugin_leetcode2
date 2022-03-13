@@ -1,5 +1,5 @@
 # nonebot_plugin_leetcode
-萌新第一个程序，正在测试中。现不准备发布在nb商店。
+萌新第一个程序，正在测试中。
 
 ## 目前已实现功能
 - [x] **对指令`/每日一题`，`/lc`，`/leetcode`回复，发送今天的每日一题。**
@@ -11,8 +11,23 @@
 - [x] **查询用户信息`/lc查询 XXXXX`，`/lc查询用户 XXXXX`，`/leetcode查询 XXXXX`，可查询用户基本信息，XXXXX为用户ID（不能用用户名）。**<br/>
 因为能查到的东西太多了，包括用户各方面分数、解题提交总数、解题失败总数、还未接触的题目数、勋章成就、题解标题等等等等，继续爬还有其他信息，所以都加进来会显得杂乱，便大概保留了一些用httpx.post请求的的函数，如感觉有必要对机器人返回信息进行修改，可以简单看看json文件夹内的一些记录（当然...这些json请求和响应写法随时可能过时，请提交issues提醒我或者自行前往leetcode检查×）
 
-## 将来加入功能
-加入计划任务，每日在指定时间向指定群和好友发送当天的每日一题
+- [x] **加入计划任务**  每日在指定时间向指定群和好友发送当天的每日一题
+
+## 使用方法
+
+在机器人plugins目录下进行git clone
+
+## 注意事项
+
+若有需要使用本插件计划任务相关功能，请在.env.\*文件中加入以下设置：
+```
+LEETCODE_QQ_FRIENDS=[3102002900]
+LEETCODE_QQ_GROUPS=[805324289]
+LEETCODE_INFORM_TIME=[{"HOUR":20,"MINUTE":1},{"HOUR":20,"MINUTE":10},{"HOUR":0,"MINUTE":1}]
+```
+其中`LEETCODE_QQ_FRIENDS`是欲定期发送题目的好友QQ，`LEETCODE_QQ_GROUPS`是定期发送题目的群聊群号，`LEETCODE_INFORM_TIME`是定时的时间。
+
+另外，由于使用到nonebot-plugin-apscheduler插件，请安排插件导入顺序以免发生错误。
 
 
 .
