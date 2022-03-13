@@ -19,8 +19,11 @@ request_random = on_command("lc随机",aliases={"lc随机一题","leetcode随机
 request_user = on_command("lc查询",aliases={"lc查询用户","leetcode查询"},priority = 10,block = True)
 
 
-
-scheduler = require("nonebot_plugin_apscheduler").scheduler
+try:
+    scheduler = require("nonebot_plugin_apscheduler").scheduler
+except Exception as e:
+    logger.error("require定时插件时出错，请检查插件加载顺序。若依然不能解决，请修改__init__.py此处并查看错误原因。")
+    # raise e
 
 
 
@@ -292,15 +295,21 @@ async def send_leetcode_everyday():
         logger.error("题目内容（html）转图片出错。")
         pass
         raise e
-    for qq in qq_list:
-        await get_bot().call_api("send_private_msg",user_id = qq ,message = "获取今日每日一题成功~加油哦ww\n"+"\n".join(today_data[:2])+MessageSegment.image(pic)+f"\n{today_data[3]}")
-    for group in group_list:
-        await get_bot().call_api("send_group_msg",group_id = group ,message = "获取今日每日一题成功~加油哦ww\n"+"\n".join(today_data[:2])+MessageSegment.image(pic)+f"\n{today_data[3]}")
+    try:
+        for qq in qq_list:
+            await get_bot().call_api("send_private_msg",user_id = qq ,message = "获取今日每日一题成功~加油哦ww\n"+"\n".join(today_data[:2])+MessageSegment.image(pic)+f"\n{today_data[3]}")
+        for group in group_list:
+            await get_bot().call_api("send_group_msg",group_id = group ,message = "获取今日每日一题成功~加油哦ww\n"+"\n".join(today_data[:2])+MessageSegment.image(pic)+f"\n{today_data[3]}")
+    except TypeError:
+        logger.error("插件定时发送相关设置有误，请检查.env.*文件。")
 
 
-for index, time in enumerate(time_list):
-    scheduler.add_job(send_leetcode_everyday, "cron", hour=time["HOUR"], minute=time["MINUTE"], id=str(index))
-    logger.info(f"新建计划任务成功！！  id:{index},时间为:{time}.")
+try:
+    for index, time in enumerate(time_list):
+        scheduler.add_job(send_leetcode_everyday, "cron", hour=time["HOUR"], minute=time["MINUTE"], id=str(index))
+        logger.info(f"新建计划任务成功！！  id:{index},时间为:{time}.")
+except TypeError:
+    logger.error("插件定时发送相关设置有误，请检查.env.*文件。")
 
 
 
