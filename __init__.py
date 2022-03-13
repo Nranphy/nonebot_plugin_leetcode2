@@ -1,4 +1,4 @@
-from nonebot import on_command
+from nonebot import on_command, require, get_bot, get_driver
 from nonebot.typing import T_State
 from nonebot.params import State
 from nonebot.adapters.onebot.v11 import Bot, Event, MessageSegment
@@ -20,6 +20,8 @@ request_user = on_command("lc查询",aliases={"lc查询用户","leetcode查询"}
 
 
 
+scheduler = require("nonebot_plugin_apscheduler").scheduler
+
 
 
 
@@ -33,6 +35,7 @@ async def send_today_problem(bot: Bot,event:Event):
         logger.info("获取题目内容成功。")
         logger.debug(f"题目{today_data[0]}的难度为{today_data[1]},内容略。")
     except Exception as e:
+        logger.error("无法连接至leetcode，请检查网络和网络代理状态。")
         await request_today.finish("连接到leetcode失败...呜呜呜...\n请稍后再试！！")
 
     ##将html转为图片
@@ -86,6 +89,7 @@ async def send_today_problem(bot: Bot,event:Event,  state: T_State = State()):
         logger.info("获取题目内容成功。")
         logger.debug(f"题目{today_data[0]}的难度为{today_data[1]},内容略。")
     except Exception as e:
+        logger.error("无法连接至leetcode，请检查网络和网络代理状态。")
         await request_search.finish("连接到leetcode失败...呜呜呜...\n请稍后再试！！")
 
     ##将html转为图片
@@ -125,6 +129,7 @@ async def send_random_problem(bot: Bot,event:Event):
         logger.info("获取题目内容成功。")
         logger.debug(f"题目{random_data[0]}的难度为{random_data[1]},内容略。")
     except Exception as e:
+        logger.error("无法连接至leetcode，请检查网络和网络代理状态。")
         await request_random.finish("连接到leetcode失败...呜呜呜...\n请稍后再试！！")
 
     ##将html转为图片
@@ -174,6 +179,7 @@ async def send_user_data(bot: Bot,event:Event,  state: T_State = State()):
         user_question_submitstats = get_user_question_submitstats(state["user_Slug"])
         user_medals = get_user_medals(state["user_Slug"])
     except Exception as e:
+        logger.error("无法连接至leetcode，请检查网络和网络代理状态。")
         await request_user.finish("连接到leetcode失败...呜呜呜...\n请稍后再试！！")
     try:
         userSlug = state["user_Slug"]
@@ -251,9 +257,50 @@ async def send_user_data(bot: Bot,event:Event,  state: T_State = State()):
 
 
 
+#定时发送
+time_list = get_driver().config.leetcode_inform_time
+
+async def send_leetcode_everyday():
+    qq_list = get_bot().config.leetcode_qq_friends
+    group_list = get_bot().config.leetcode_qq_groups
+    try:
+        today_title = get_today_title()
+        logger.info(f"获取今日题目成功，题目为{today_title}.")
+        today_data = get_sub_problem_data(today_title)
+        logger.info("获取题目内容成功。")
+        logger.debug(f"题目{today_data[0]}的难度为{today_data[1]},内容略。")
+    except Exception as e:
+        logger.error("无法连接至leetcode，请检查网络和网络代理状态。")
+        pass
+    ##将html转为图片
+    html_path = f"data/nonebot_plugin_leetcode/html"
+    check_dir(html_path)
+    html_file_path = html_path+f'/{today_title}.html'
+    img_path = f"data/nonebot_plugin_leetcode/img"
+    check_dir(img_path)
+    img_file_path = img_path+f'/{today_title}.png'
+    with open(html_file_path,"w+") as f:
+        f.write(today_data[2])
+    try:
+        async with get_new_page(viewport={"width": 840, "height": 800}) as page:
+                await page.goto(
+                    "file://"+str(os.getcwd())+"/"+html_file_path,
+                    wait_until="networkidle"
+                )
+                pic = await page.screenshot(full_page=True, path=img_file_path)
+    except Exception as e:
+        logger.error("题目内容（html）转图片出错。")
+        pass
+        raise e
+    for qq in qq_list:
+        await get_bot().call_api("send_private_msg",user_id = qq ,message = "获取今日每日一题成功~加油哦ww\n"+"\n".join(today_data[:2])+MessageSegment.image(pic)+f"\n{today_data[3]}")
+    for group in group_list:
+        await get_bot().call_api("send_group_msg",group_id = group ,message = "获取今日每日一题成功~加油哦ww\n"+"\n".join(today_data[:2])+MessageSegment.image(pic)+f"\n{today_data[3]}")
 
 
-
+for index, time in enumerate(time_list):
+    scheduler.add_job(send_leetcode_everyday, "cron", hour=time["HOUR"], minute=time["MINUTE"], id=str(index))
+    logger.info(f"新建计划任务成功！！  id:{index},时间为:{time}.")
 
 
 
