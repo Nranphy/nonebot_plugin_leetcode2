@@ -1,5 +1,5 @@
-# nonebot_plugin_leetcode
-萌新第一个程序，正在测试中。
+# nonebot_plugin_leetcode2
+基于nonebot2的leetcode查询插件。
 
 ## 目前已实现功能
 - [x] **对指令`/每日一题`，`/lc`，`/leetcode`回复，发送今天的每日一题。**
