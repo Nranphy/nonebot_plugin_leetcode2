@@ -1,7 +1,6 @@
 import httpx
 import json
 from nonebot.log import logger
-from nonebot_plugin_htmlrender import get_new_page
 
 
 
@@ -88,14 +87,3 @@ def get_sub_problem_data(titleSlug_):
     except Exception as e:
         logger.error("获取已知题目的内容时出错。",e)
         raise e
-
-
-#干脆直接访问×(可能是咱主机的网络问题，不能定位)
-async def get_problem_screenshot(today_title,img_file_path):
-        async with get_new_page(viewport={"width": 500, "height": 300}) as page:
-                await page.goto(
-                    "https://leetcode-cn.com/problems/"+today_title,
-                    wait_until="networkidle"
-                )
-                div = page.locator("div.notranslate")
-                pic = await div.screenshot(path=img_file_path)
