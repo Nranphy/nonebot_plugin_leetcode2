@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='nonebot_plugin_leetcode2',
-    version='1.0.3',
+    version='1.0.5',
     author='Nranphy',
     author_email='3102002900@qq.com',
     url='https://github.com/Nranphy/nonebot_plugin_leetcode2',

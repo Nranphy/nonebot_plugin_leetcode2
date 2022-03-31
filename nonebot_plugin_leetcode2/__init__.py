@@ -261,11 +261,12 @@ async def send_user_data(bot: Bot,event:Event,  state: T_State = State()):
 
 
 #定时发送
-time_list = get_driver().config.leetcode_inform_time
+
+time_list = get_driver().config.leetcode_inform_time if hasattr(get_driver().config, "leetcode_inform_time") else list()
 
 async def send_leetcode_everyday():
-    qq_list = get_bot().config.leetcode_qq_friends
-    group_list = get_bot().config.leetcode_qq_groups
+    qq_list = get_bot().config.leetcode_qq_friends if hasattr(get_driver().config, "leetcode_qq_friends") else list()
+    group_list = get_bot().config.leetcode_qq_groups if hasattr(get_driver().config, "leetcode_qq_groups") else list()
     try:
         today_title = get_today_title()
         logger.info(f"获取今日题目成功，题目为{today_title}.")
@@ -302,6 +303,9 @@ async def send_leetcode_everyday():
             await get_bot().call_api("send_group_msg",group_id = group ,message = "获取今日每日一题成功~加油哦ww\n"+"\n".join(today_data[:2])+MessageSegment.image(pic)+f"\n{today_data[3]}")
     except TypeError:
         logger.error("插件定时发送相关设置有误，请检查.env.*文件。")
+
+
+
 
 
 try:

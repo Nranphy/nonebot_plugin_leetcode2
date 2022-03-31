@@ -30,6 +30,8 @@ LEETCODE_INFORM_TIME=[{"HOUR":20,"MINUTE":1},{"HOUR":20,"MINUTE":10},{"HOUR":0,"
 ```
 其中`LEETCODE_QQ_FRIENDS`是欲定期发送题目的好友QQ，`LEETCODE_QQ_GROUPS`是定期发送题目的群聊群号，`LEETCODE_INFORM_TIME`是定时的时间。这和另一个leetcode插件的配置项是相同的。
 
+当然，不添加配置项也可正常使用其他功能。感谢@j1g5awi佬的检查与提醒。
+
 另外，由于使用到nonebot-plugin-apscheduler插件，请安排插件导入顺序以免发生错误。
 
 
